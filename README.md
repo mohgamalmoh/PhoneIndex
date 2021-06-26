@@ -5,7 +5,7 @@ PhoneIndex is an API Based Project.
 
 Everything is under "app/Modules/Customers"
 
-it has two endpoints:
+It has two endpoints:
 
 1-listing customers with their phones and countries and phones validity:
 
