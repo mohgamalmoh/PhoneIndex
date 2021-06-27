@@ -7,8 +7,6 @@ use App\Modules\Customers\Builder\Interfaces\CustomerBuilderInterface;
 use App\Modules\Customers\DTO\CustomerDTO;
 use App\Modules\Customers\DTO\CustomerDTOInterface;
 use App\Modules\Customers\Strategies\Interfaces\PhoneNumbersDetectorStrategyInterface;
-use \App\Modules\Customers\Utils\CountryCodesMapUtil;
-use App\Modules\Customers\Utils\CountryPhonesRegexpMapUtil;
 
 class CustomerConcreteBuilder implements CustomerBuilderInterface
 {

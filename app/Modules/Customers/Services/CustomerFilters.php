@@ -3,8 +3,6 @@ namespace App\Filters;
 use App\Modules\Customers\Utils\CountryCodesMapUtil;
 use App\Modules\Customers\Utils\CountryPhonesRegexpMapUtil;
 use App\User;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class CustomerFilters extends QueryFilters

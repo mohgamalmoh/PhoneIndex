@@ -19,7 +19,6 @@ class CustomerService implements BaseServiceInterface
         $this->customerRepository = $customerRepository;
     }
     public function index($request){
-        $this->validateIndexRequest($request);
         $customers = $this->customerRepository->index(new CustomerFilters($request));
         $phoneDetectionLib = PhoneNumberDetectorFactory::generate();
         $result = [];
@@ -31,14 +30,6 @@ class CustomerService implements BaseServiceInterface
         $jsonDecodedCustomers = json_decode($customers->toJson(),true);
         $jsonDecodedCustomers['data'] = $result;
         return $jsonDecodedCustomers;
-    }
-
-    public function validateIndexRequest(array $request){
-        $validation = new ValidateIndex($request);
-        $validationResult = $validation->validate();
-        if(!$validationResult){
-           throw new CustomersInputException($validation->getMessages());
-        }
     }
 
     public function getCountriesList(){
