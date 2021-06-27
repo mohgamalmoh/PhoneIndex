@@ -4,7 +4,9 @@
 namespace App\Modules\Customers\Exceptions;
 
 
-class CustomersInputException extends \Exception
+use App\Exceptions\ValidationException;
+
+class CustomersInputException extends ValidationException
 {
 
 }
