@@ -19,7 +19,7 @@ class CustomersController extends Controller
 
     public function index(CustomersIndexRequest $request)
     {
-        return response()->json($this->customerService->index($request->all()), 200);
+        return response()->json($this->customerService->getPaginatedList($request->all()), 200);
     }
 
     public function getCountriesList(){

@@ -7,9 +7,11 @@ use App\Modules\Customers\Builder\CustomerDTOCreationDirector;
 use App\Modules\Customers\Countries\Countries;
 use App\Modules\Customers\Exceptions\CustomersInputException;
 use App\Modules\Customers\Repositories\CustomerRepository;
-use App\Modules\Customers\Services\Interfaces\BaseServiceInterface;
+use App\Modules\Customers\Repositories\EloquentCustomerRepository;
 use App\Modules\Customers\Strategies\PhoneNumberDetectorFactory;
 use App\Modules\Customers\Validation\ValidateIndex;
+use App\Repositories\Interfaces\BaseRepositoryInterface;
+use App\Services\Interfaces\BaseServiceInterface;
 
 class CustomerService implements BaseServiceInterface
 {
@@ -18,8 +20,8 @@ class CustomerService implements BaseServiceInterface
     public function __construct(CustomerRepository $customerRepository){
         $this->customerRepository = $customerRepository;
     }
-    public function index($request){
-        $customers = $this->customerRepository->index(new CustomerFilters($request));
+    public function getPaginatedList($request){
+        $customers = $this->customerRepository->getPaginatedList($request);
         $phoneDetectionLib = PhoneNumberDetectorFactory::generate();
         $result = [];
         foreach ($customers as $value){

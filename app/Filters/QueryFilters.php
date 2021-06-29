@@ -4,7 +4,7 @@ namespace App\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class QueryFilters
+abstract class QueryFilters
 {
     protected $request;
     protected $builder;
