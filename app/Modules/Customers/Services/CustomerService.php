@@ -7,15 +7,12 @@ use App\Modules\Customers\Builder\CustomerDTOCreationDirector;
 use App\Modules\Customers\Countries\Countries;
 use App\Modules\Customers\Exceptions\CustomersInputException;
 use App\Modules\Customers\Repositories\CustomerRepository;
-use App\Modules\Customers\Repositories\EloquentCustomerRepository;
 use App\Modules\Customers\Strategies\PhoneNumberDetectorFactory;
 use App\Modules\Customers\Validation\ValidateIndex;
-use App\Repositories\Interfaces\BaseRepositoryInterface;
 use App\Services\Interfaces\BaseServiceInterface;
 
 class CustomerService implements BaseServiceInterface
 {
-    private string $errors;
     private $customerRepository;
     public function __construct(CustomerRepository $customerRepository){
         $this->customerRepository = $customerRepository;

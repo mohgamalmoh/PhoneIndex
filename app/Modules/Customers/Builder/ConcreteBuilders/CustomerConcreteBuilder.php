@@ -5,7 +5,7 @@ namespace App\Modules\Customers\Builder\ConcreteBuilders;
 
 use App\Modules\Customers\Builder\Interfaces\CustomerBuilderInterface;
 use App\Modules\Customers\DTO\CustomerDTO;
-use App\Modules\Customers\DTO\CustomerDTOInterface;
+use App\Modules\Customers\DTO\Interfaces\CustomerDTOInterface;
 use App\Modules\Customers\Strategies\Interfaces\PhoneNumbersDetectorStrategyInterface;
 
 class CustomerConcreteBuilder implements CustomerBuilderInterface

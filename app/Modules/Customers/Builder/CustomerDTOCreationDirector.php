@@ -3,7 +3,7 @@
 namespace App\Modules\Customers\Builder;
 
 use App\Modules\Customers\Builder\Interfaces\CustomerBuilderInterface;
-use App\Modules\Customers\DTO\CustomerDTOInterface;
+use App\Modules\Customers\DTO\Interfaces\CustomerDTOInterface;
 
 class CustomerDTOCreationDirector
 {

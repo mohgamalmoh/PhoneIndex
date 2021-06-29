@@ -3,6 +3,8 @@
 namespace App\Modules\Customers\DTO;
 
 
+use App\Modules\Customers\DTO\Interfaces\CustomerDTOInterface;
+
 class CustomerDTO implements CustomerDTOInterface
 {
 

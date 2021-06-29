@@ -2,7 +2,7 @@
 
 namespace App\Modules\Customers\Builder\Interfaces;
 
-use App\Modules\Customers\DTO\CustomerDTOInterface;
+use App\Modules\Customers\DTO\Interfaces\CustomerDTOInterface;
 
 interface CustomerBuilderInterface
 {

@@ -1,5 +1,5 @@
 <?php
-namespace App\Modules\Customers\DTO;
+namespace App\Modules\Customers\DTO\Interfaces;
 
 interface CustomerDTOInterface{
     public function getId() : string;
