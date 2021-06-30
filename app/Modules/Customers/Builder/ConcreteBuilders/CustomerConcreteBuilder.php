@@ -36,12 +36,12 @@ class CustomerConcreteBuilder implements CustomerBuilderInterface
 
     public function buildState()
     {
-        $this->state = $this->phoneDetectorLib->getValidityByPhoneNumber($this->rawCustomer->phone);
+        $this->state = $this->phoneDetectorLib->getValidityByPhoneNumber($this->rawCustomer->phone)? 'OK':'NOK';
     }
 
     public function buildCode()
     {
-        $this->code = substr($this->rawCustomer->phone,1, 3);
+        $this->code = '+'.substr($this->rawCustomer->phone,1, 3);
     }
 
     public function buildPhone()

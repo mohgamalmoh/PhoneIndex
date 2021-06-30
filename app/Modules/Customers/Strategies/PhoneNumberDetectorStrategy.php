@@ -24,14 +24,14 @@ class PhoneNumberDetectorStrategy implements PhoneNumbersDetectorStrategyInterfa
         }
     }
 
-    public function getValidityByPhoneNumber(string $phoneNumber): string
+    public function getValidityByPhoneNumber(string $phoneNumber): bool
     {
         $countriesRegEx = CountryPhonesRegexpMapUtil::COUNTRY_PHONES_REGEXP_MAP;
         if(!isset($this->country)){
             $this->getCountryByPhoneNumber($phoneNumber);
         }
         if (isset($countriesRegEx[$this->country])){
-            return preg_match('/'.$countriesRegEx[$this->country].'/' , $phoneNumber) == 1 ? 'OK':'NOK';
+            return preg_match('/'.$countriesRegEx[$this->country].'/' , $phoneNumber) == 1;
         }else{
             return '';
         }

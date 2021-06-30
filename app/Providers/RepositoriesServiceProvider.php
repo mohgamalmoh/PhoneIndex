@@ -5,7 +5,6 @@ namespace App\Providers;
 
 use App\Modules\Customers\Repositories\CustomerRepository;
 use App\Modules\Customers\Repositories\EloquentCustomerRepository;
-use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 
