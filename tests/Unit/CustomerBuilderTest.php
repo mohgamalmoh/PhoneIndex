@@ -4,99 +4,68 @@ namespace Tests\Unit;
 
 use App\Modules\Customers\Builder\ConcreteBuilders\CustomerConcreteBuilder;
 use App\Modules\Customers\Builder\CustomerDTOCreationDirector;
+use App\Modules\Customers\DTO\Interfaces\CustomerDTOInterface;
 use App\Modules\Customers\Strategies\Interfaces\PhoneNumbersDetectorStrategyInterface;
 use PHPUnit\Framework\TestCase;
 
 class CustomerBuilderTest extends TestCase
 {
+    private \stdClass $rawCustomer;
+
+    private function setupRawCustomer($id,$name,$phone){
+        $this->rawCustomer = new \stdClass();
+        $this->rawCustomer->id = $id;
+        $this->rawCustomer->name = $name;
+        $this->rawCustomer->phone = $phone;
+    }
+
+    private function setUpBuilderAndGetDTO($country,$phoneValidity) : CustomerDTOInterface{
+        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
+        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn($country);
+        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn($phoneValidity);
+        $concreteBuilder = new CustomerConcreteBuilder($this->rawCustomer,$mockedPhoneDetectionStrategy);
+        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
+        return $customerCreationDirector->getCustomer();
+    }
 
     public function testCustomerValidPhone()
     {
-        $rawCustomer = new \stdClass();
-        $rawCustomer->id = 1;
-        $rawCustomer->name = 'john duck';
-        $rawCustomer->phone = '(212) 698054317';
+        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
+        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
 
-        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
-        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn('Morocco');
-        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn(true);
-
-        $concreteBuilder = new CustomerConcreteBuilder($rawCustomer,$mockedPhoneDetectionStrategy);
-        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
-
-        $this->assertEquals('OK',$customerCreationDirector->getCustomer()->getState());
-
+        $this->assertEquals('OK',$customerDTO->getState());
     }
 
     public function testCustomerInvalidPhone()
     {
-        $rawCustomer = new \stdClass();
-        $rawCustomer->id = 1;
-        $rawCustomer->name = 'john wick';
-        $rawCustomer->phone = '(212) 6007989253';
 
-        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
-        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn('Morocco');
-        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn(false);
+        $this->setupRawCustomer(1,'jimmi doe','(212) 6007989253');
+        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',false);
 
-        $concreteBuilder = new CustomerConcreteBuilder($rawCustomer,$mockedPhoneDetectionStrategy);
-        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
-
-        $this->assertEquals('NOK',$customerCreationDirector->getCustomer()->getState());
-
+        $this->assertEquals('NOK',$customerDTO->getState());
     }
 
     public function testCustomerCountry()
     {
-        $rawCustomer = new \stdClass();
-        $rawCustomer->id = 1;
-        $rawCustomer->name = 'john duck';
-        $rawCustomer->phone = '(212) 698054317';
+        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
+        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
 
-        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
-        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn('Morocco');
-        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn(true);
-
-        $concreteBuilder = new CustomerConcreteBuilder($rawCustomer,$mockedPhoneDetectionStrategy);
-        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
-
-        $this->assertEquals('Morocco',$customerCreationDirector->getCustomer()->getCountry());
-
+        $this->assertEquals('Morocco',$customerDTO->getCountry());
     }
 
     public function testCustomerPhone()
     {
-        $rawCustomer = new \stdClass();
-        $rawCustomer->id = 1;
-        $rawCustomer->name = 'john duck';
-        $rawCustomer->phone = '(212) 698054317';
+        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
+        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
 
-        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
-        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn('Morocco');
-        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn(true);
-
-        $concreteBuilder = new CustomerConcreteBuilder($rawCustomer,$mockedPhoneDetectionStrategy);
-        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
-
-        $this->assertEquals('698054317',$customerCreationDirector->getCustomer()->getPhone());
-
+        $this->assertEquals('698054317',$customerDTO->getPhone());
     }
 
     public function testCustomerCountryCode()
     {
-        $rawCustomer = new \stdClass();
-        $rawCustomer->id = 1;
-        $rawCustomer->name = 'john duck';
-        $rawCustomer->phone = '(212) 698054317';
+        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
+        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
 
-        $mockedPhoneDetectionStrategy = $this->getMockBuilder(PhoneNumbersDetectorStrategyInterface::class)->getMock();
-        $mockedPhoneDetectionStrategy->method('getCountryByPhoneNumber')->willReturn('Morocco');
-        $mockedPhoneDetectionStrategy->method('getValidityByPhoneNumber')->willReturn(true);
-
-        $concreteBuilder = new CustomerConcreteBuilder($rawCustomer,$mockedPhoneDetectionStrategy);
-        $customerCreationDirector = new CustomerDTOCreationDirector($concreteBuilder);
-
-        $this->assertEquals('+212',$customerCreationDirector->getCustomer()->getCode());
-
+        $this->assertEquals('+212',$customerDTO->getCode());
     }
 }
