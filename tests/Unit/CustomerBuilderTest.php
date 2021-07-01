@@ -39,7 +39,7 @@ class CustomerBuilderTest extends TestCase
     public function testCustomerInvalidPhone()
     {
 
-        $this->setupRawCustomer(1,'jimmi doe','(212) 6007989253');
+        $this->setupRawCustomer(2,'jimmi wow','(212) 6007989253');
         $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',false);
 
         $this->assertEquals('NOK',$customerDTO->getState());
