@@ -11,6 +11,13 @@ use PHPUnit\Framework\TestCase;
 class CustomerBuilderTest extends TestCase
 {
     private \stdClass $rawCustomer;
+    private CustomerDTOInterface $customerDTO;
+
+    public function setUp(): void
+    {
+        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
+        $this->customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
+    }
 
     private function setupRawCustomer($id,$name,$phone){
         $this->rawCustomer = new \stdClass();
@@ -30,10 +37,7 @@ class CustomerBuilderTest extends TestCase
 
     public function testCustomerValidPhone()
     {
-        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
-        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
-
-        $this->assertEquals('OK',$customerDTO->getState());
+        $this->assertEquals('OK',$this->customerDTO->getState());
     }
 
     public function testCustomerInvalidPhone()
@@ -47,25 +51,16 @@ class CustomerBuilderTest extends TestCase
 
     public function testCustomerCountry()
     {
-        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
-        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
-
-        $this->assertEquals('Morocco',$customerDTO->getCountry());
+        $this->assertEquals('Morocco',$this->customerDTO->getCountry());
     }
 
     public function testCustomerPhone()
     {
-        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
-        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
-
-        $this->assertEquals('698054317',$customerDTO->getPhone());
+        $this->assertEquals('698054317',$this->customerDTO->getPhone());
     }
 
     public function testCustomerCountryCode()
     {
-        $this->setupRawCustomer(1,'jimmi doe','(212) 698054317');
-        $customerDTO = $this->setUpBuilderAndGetDTO('Morocco',true);
-
-        $this->assertEquals('+212',$customerDTO->getCode());
+        $this->assertEquals('+212',$this->customerDTO->getCode());
     }
 }
