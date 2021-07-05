@@ -3,7 +3,7 @@
 
 PhoneIndex is an API Based Project.
 
-Everything is under "app/Modules/Customers"
+Everything is under "app/Modules"
 
 It has two endpoints:
 
