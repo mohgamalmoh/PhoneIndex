@@ -3,10 +3,18 @@
 namespace App\Modules\Customers\Requests;
 
 use App\Http\Requests\APIRequest;
+use App\Modules\Countries\Services\Interfaces\CountriesInterface;
 use App\Modules\Customers\Countries\Countries;
 
 class CustomersIndexRequest extends APIRequest
 {
+    private $countriesService;
+    public function __construct(array $query = [], array $request = [], array $attributes = [], array $cookies = [], array $files = [], array $server = [], $content = null, CountriesInterface $countriesService)
+    {
+        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
+        $this->countriesService = $countriesService;
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,9 +32,8 @@ class CustomersIndexRequest extends APIRequest
      */
     public function rules()
     {
-        $countries = new Countries();
         return [
-            'country' => 'nullable|in:'.implode(',',$countries->getList()),
+            'country' => 'nullable|in:'.implode(',',$this->countriesService->getList()),
             'state' => 'nullable|in:valid,invalid'
         ];
     }

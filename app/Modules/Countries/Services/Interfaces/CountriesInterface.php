@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Modules\Customers\Countries\Interfaces;
+namespace App\Modules\Countries\Services\Interfaces;
 
 
 interface CountriesInterface
