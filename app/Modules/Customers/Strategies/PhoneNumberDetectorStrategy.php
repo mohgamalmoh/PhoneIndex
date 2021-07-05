@@ -5,8 +5,8 @@ namespace App\Modules\Customers\Strategies;
 
 
 use App\Modules\Customers\Strategies\Interfaces\PhoneNumbersDetectorStrategyInterface;
-use App\Modules\Customers\Utils\CountryCodesMapUtil;
-use App\Modules\Customers\Utils\CountryPhonesRegexpMapUtil;
+use App\Utils\CountryCodesMapUtil;
+use App\Utils\CountryPhonesRegexpMapUtil;
 
 class PhoneNumberDetectorStrategy implements PhoneNumbersDetectorStrategyInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Customers\Utils;
+namespace App\Utils;
 
 class CountryPhonesRegexpMapUtil
 {
