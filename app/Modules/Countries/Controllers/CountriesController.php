@@ -4,7 +4,6 @@ namespace App\Modules\Countries\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Modules\Countries\Services\CountriesService;
 use App\Modules\Countries\Services\Interfaces\CountriesInterface;
 
 class CountriesController extends Controller
@@ -15,7 +14,7 @@ class CountriesController extends Controller
     }
 
     public function getCountriesList(){
-        return response()->json($this->countriesService->getList(), 200);
+        return response()->json(['data'=>$this->countriesService->getList()], 200);
     }
 
 }
