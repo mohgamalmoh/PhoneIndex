@@ -22,8 +22,4 @@ class CustomersController extends Controller
         return response()->json($this->customerService->getPaginatedList($request->all()), 200);
     }
 
-    public function getCountriesList(){
-        return response()->json($this->customerService->getCountriesList(), 200);
-    }
-
 }
